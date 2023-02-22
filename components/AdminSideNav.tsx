@@ -22,7 +22,7 @@ const navItems = [
 
 export default function AdminSideNav({ children }: { children: React.ReactNode }) {
    const componentRef = useRef<HTMLDivElement>(null)
-   const [menuOpen, setMenuOpen] = useState(true)
+   const [menuOpen, setMenuOpen] = useState(false)
    const { width } = useContainerDimensions(componentRef, menuOpen)
 
    const toggleMenu = () => {
@@ -65,7 +65,10 @@ export default function AdminSideNav({ children }: { children: React.ReactNode }
             </ul>
          </div>
 
-         <div style={{ left: width + "px" }} className="absolute top-0 right-0 bottom-0 transition-all ease-linear">
+         <div
+            style={{ left: width + "px" }}
+            className="absolute top-0 right-0 bottom-0 transition-all ease-linear overflow-hidden"
+         >
             {children}
          </div>
       </>

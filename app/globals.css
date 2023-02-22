@@ -13,20 +13,19 @@
 /* ********************************************************** */
 
 .quill {
-   height: 100%;
+   min-height: 100%;
    position: relative;
+   display: flex;
+   flex-direction: column-reverse;
 }
 
 .quill .ql-toolbar {
-   border-color: transparent;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   position: absolute;
-   bottom: 20px;
-   left: 0;
-   right: 0;
+   border-color: transparent !important;
+   position: sticky;
+   bottom: 10px;
+   width: fit-content;
    z-index: 10;
+   margin: 0 auto;
 }
 
 .ql-snow.ql-toolbar button:hover,
@@ -58,8 +57,10 @@
    width: 100%;
    max-width: 700px;
    margin: 0 auto;
-   height: 100%;
-   padding-bottom: 65px;
+   min-height: 100vh;
+   padding: 1.5rem 1.5rem 65px 1.5rem;
+   margin-bottom: -1rem;
+   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .ql-editor::-webkit-scrollbar {
@@ -71,7 +72,7 @@
 }
 
 .ql-editor::-webkit-scrollbar-track {
-   background-color: white;
+   background-color: var(--box-color);
    border-radius: 100px;
 }
 
