@@ -17,6 +17,9 @@
   position: relative;
   display: flex;
   flex-direction: column-reverse;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .quill .ql-toolbar {
@@ -116,9 +119,6 @@
   border-radius: 0.75rem;
   background-color: var(--box-color);
   border-color: transparent;
-  width: 100%;
-  max-width: 700px;
-  margin: 0 auto;
   min-height: 100vh;
   padding: 1.5rem 1.5rem 65px 1.5rem;
   margin-bottom: -1rem;

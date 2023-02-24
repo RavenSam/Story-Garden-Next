@@ -1,13 +1,11 @@
 "use client"
 
-import { surroundSelection } from "@/utils/TextFunctions"
 import React, { useRef, useState, useEffect } from "react"
 import { useQuill } from "react-quilljs"
 import "quill/dist/quill.snow.css"
-import { highlightSelection } from "@/utils/highlightSelection"
 import rangy from "rangy/lib/rangy-core"
 import "rangy/lib/rangy-classapplier"
-
+import { TiUserAdd } from "react-icons/ti"
 
 const modules = {
    toolbar: [
@@ -28,14 +26,20 @@ const modules = {
    },
 }
 
-//quillRef.state.editor.focus();
+
+
 export default function TextEditor() {
    const { quill, quillRef } = useQuill({ modules })
-
-   let applier
+   const [selectBound, setSelectBound] = useState<number | { top: number; left: number }>(0)
+   let [isOpen, setIsOpen] = useState(false)
 
    const setApplier = () => {
-      rangy.createClassApplier("text-red-500", { elementTagName: "span", elementAttributes:{style:"color:red"} }).toggleSelection()
+      rangy
+         .createClassApplier("text-red-500", {
+            elementTagName: "span",
+            elementAttributes: { style: "color:red", "data-char": "character" },
+         })
+         .toggleSelection()
    }
 
    useEffect(() => {
@@ -45,21 +49,78 @@ export default function TextEditor() {
          quillRef?.current?.addEventListener("click", focusQuill)
       }
 
+      if (quill) {
+         // initciall text
+         quill.clipboard.dangerouslyPasteHTML("<h1>React Hook for Quill!</h1>")
+
+         quill.on("selection-change", (range, oldRange, src) => {
+            if (range) {
+               if (range.length == 0) {
+                  // console.log("User cursor is on", range.index)
+                  setSelectBound(0)
+               } else {
+                  var text = quill.getText(range.index, range.length)
+                  const bound = quill.getBounds(range.index, range.length)
+                  setSelectBound(bound)
+                  // console.log("User has highlighted", text)
+                  console.log(bound)
+               }
+            } else {
+               // console.log("Cursor not in the editor")
+               setSelectBound(0)
+            }
+         })
+      }
+
       rangy.init()
 
       function focusQuill() {
          quill?.focus()
       }
-
-     
    }, [quill, quillRef])
 
+   const popupItems = [
+      {
+         label: "Link Character",
+         icon: TiUserAdd,
+         handler: () => {
+            setIsOpen(true)
+            console.log(isOpen)
+         },
+      },
+      { label: "Link Place", icon: TiUserAdd, handler: () => console.log("Place") },
+      { label: "Create Note", icon: TiUserAdd, handler: () => console.log("Note") },
+   ]
+   //
    return (
       <>
+         
+      
          <p>Please work</p>
 
          <div className="quill">
             <div ref={quillRef} />
+
+
+{typeof selectBound === "object" ? (
+            <div
+               style={{ top: selectBound.top - 8, left: selectBound.left + selectBound.width }}
+               className="absolute z-10 flex item-center bg-white rounded-xl border border-gray-300 overflow-hidden"
+            >
+               {popupItems.map((item) => (
+                  <button
+                     key={item.label}
+                     title={item.label}
+                     aria-label={item.label}
+                     onClick={item.handler}
+                     className="p-3 text-gray-600 hover:bg-slate-200 shadow-2xl hover:text-emerald-500"
+                  >
+                     <item.icon size={"1.2rem"} />
+                  </button>
+               ))}
+            </div>
+         ) : null}
+
          </div>
 
          <button
@@ -72,25 +133,5 @@ export default function TextEditor() {
    )
 }
 
-// var theDiv = document.getElementById('pageFrame');
-// theDiv.contentEditable = true;
 
-// document.getElementById('clickNode').onmousedown = ( function() {
-//    addTheNode();
-// });
 
-// function addTheNode()
-// {
-// rangy.init();
-
-// var range = rangy.getSelection().getRangeAt(0);
-
-// alert(range);
-
-//     var newNode = document.createElement("code");
-// 				newNode.className = "code";
-// 				newNode.contentEditable = false;
-//                 newNode.innerHTML = "&nbsp";
-// 				range.insertNode(newNode);
-
-// }
