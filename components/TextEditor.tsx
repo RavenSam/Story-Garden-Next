@@ -30,7 +30,7 @@ const modules = {
 
 export default function TextEditor() {
    const { quill, quillRef } = useQuill({ modules })
-   const [selectBound, setSelectBound] = useState<number | { top: number; left: number }>(0)
+   const [selectBound, setSelectBound] = useState<number | { top: number; left: number, height:number, width:number, words:string[] }>(0)
    let [isOpen, setIsOpen] = useState(false)
 
    const setApplier = () => {
@@ -61,9 +61,14 @@ export default function TextEditor() {
                } else {
                   var text = quill.getText(range.index, range.length)
                   const bound = quill.getBounds(range.index, range.length)
-                  setSelectBound(bound)
-                  // console.log("User has highlighted", text)
-                  console.log(bound)
+                  
+                  const words = text.split(" ")
+                  //console.log(words)
+                  
+                  setSelectBound({...bound, words})
+                  
+                  //console.log("User has highlighted", text)
+                  //console.log(bound)
                }
             } else {
                // console.log("Cursor not in the editor")
@@ -96,15 +101,17 @@ export default function TextEditor() {
       <>
          
       
-         <p>Please work</p>
+         
+         <div className="mx-auto max-w-2xl">
 
+         
          <div className="quill">
             <div ref={quillRef} />
 
 
-{typeof selectBound === "object" ? (
+         {typeof selectBound === "object" ? (
             <div
-               style={{ top: selectBound.top - 8, left: selectBound.left + selectBound.width }}
+               style={{ top: selectBound.top - selectBound.height, left: selectBound.left + (selectBound.width / 2), transform:"translate(-50%,-50%)" }}
                className="absolute z-10 flex item-center bg-white rounded-xl border border-gray-300 overflow-hidden"
             >
                {popupItems.map((item) => (
@@ -122,13 +129,8 @@ export default function TextEditor() {
          ) : null}
 
          </div>
-
-         <button
-            onClick={setApplier}
-            className="absolute top-4 right-4  border bg-white border-slate-500 rounded-full h-8 w-8"
-         >
-            S
-         </button>
+         </div>
+         
       </>
    )
 }
