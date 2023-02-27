@@ -7,20 +7,22 @@
    --primary-color-hover: #059669;
    --box-color: #fff;
 
-   --character-mark-bg: 0, 60, 255;
-   --place-mark-bg: 179, 211, 39;
+   --character-mark: rgb(39, 206, 206);
+   --character-mark-bg: rgba(6, 8, 41, 0.8);
+   --place-mark: orange;
+   --place-mark-bg: rgba(6, 8, 41, 0.8);
 }
 
-.marked-character {
-   background: rgba(var(--character-mark-bg), 0.5);
+[data-character] {
+   color: var(--character-mark) !important;
+   background-color: var(--character-mark-bg);
    border-radius: 5px;
-   border: 1px solid rgb(var(--character-mark-bg));
 }
 
-.marked-place {
-   background: rgba(var(--place-mark-bg), 0.5);
+[data-place] {
+   color: var(--place-mark) !important;
+   background-color: var(--place-mark-bg);
    border-radius: 5px;
-   border: 1px solid rgb(var(--place-mark-bg));
 }
 
 /* ********************************************************** */

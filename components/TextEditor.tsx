@@ -36,7 +36,7 @@ const modules = {
 export default function TextEditor() {
    const { quill, quillRef } = useQuill({ modules })
    const [selectBound, setSelectBound] = useState<number | SetBoundType>(0)
-   let [isOpen, setIsOpen] = useState(false)
+   const [open, setOpen] = useState(false)
 
    const setApplier = (markerClass: string, elementAttributes: any) => {
       rangy.createClassApplier(markerClass, { elementAttributes }).toggleSelection()
@@ -51,7 +51,7 @@ export default function TextEditor() {
 
       if (quill) {
          // initciall text
-         quill.clipboard.dangerouslyPasteHTML("<h1>React Hook for Quill! React Hook for Quill!</h1>")
+         quill.clipboard.dangerouslyPasteHTML(`<h1>React Hook for Quill! React Hook for Quill!</h1>`)
 
          quill.on("selection-change", (range, oldRange, src) => {
             if (range) {
@@ -87,11 +87,11 @@ export default function TextEditor() {
 
    const linkWords = (linkTo: "character" | "place", dataAt: string | number) => {
       let dataName = `data-${linkTo}`
-      setApplier(`marked-${linkTo}`, { style: "color:inherit", [dataName]: dataAt })
+      setApplier("marked-word", { style: "color:inherit", [dataName]: dataAt })
    }
 
    const popupItems: PopupItemsType = [
-      { label: "Link Character", icon: TiUserAdd, handler: () => linkWords("character", "chara00001") },
+      { label: "Link Character", icon: TiUserAdd, handler: () => setOpen(true) },
       { label: "Link Place", icon: MdEditLocationAlt, handler: () => linkWords("place", "place00001") },
       { label: "Create Note", icon: MdEditNote, handler: () => console.log("Note") },
    ]
@@ -110,6 +110,12 @@ export default function TextEditor() {
       <>
          <div className="mx-auto max-w-2xl">
             <h1 className="text-3xl my-5">Edit Single Chapter</h1>
+
+            <div style={{ display: open ? "block" : "none" }} className="p-8 my-3 bg-green-500 rounded-xl">
+               <button className="bg-white/40 p-3" onClick={() => linkWords("character", "chara00001")}>
+                  character
+               </button>
+            </div>
 
             <div className="quill">
                <div ref={quillRef} />

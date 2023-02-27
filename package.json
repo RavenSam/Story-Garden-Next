@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/next-js": "^2.0.1",
     "@headlessui/react": "^0.0.0-insiders.d1ca3a9",
     "@next/font": "13.1.6",
     "@types/node": "18.14.0",

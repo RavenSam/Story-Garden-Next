@@ -11,6 +11,7 @@ export default function Home() {
          <div className="flex items-center justify-center h-[100vh]">
             <div className="">
                <h1 className="text-3xl">Welcome</h1>
+
                <p className="text-slate-500 py-4">Here are all the available pages</p>
                <div className="flex items-center  space-x-2">
                   {pages.map((page) => (
