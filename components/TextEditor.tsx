@@ -36,11 +36,13 @@ const modules = {
 export default function TextEditor() {
    const { quill, quillRef } = useQuill({ modules })
    const [selectBound, setSelectBound] = useState<number | SetBoundType>(0)
-   const [open, setOpen] = useState(false)
+   const [open, setOpen] = useState(true)
 
    const setApplier = (markerClass: string, elementAttributes: any) => {
       rangy.createClassApplier(markerClass, { elementAttributes }).toggleSelection()
    }
+
+   let text
 
    useEffect(() => {
       focusQuill()
@@ -91,7 +93,7 @@ export default function TextEditor() {
    }
 
    const popupItems: PopupItemsType = [
-      { label: "Link Character", icon: TiUserAdd, handler: () => setOpen(true) },
+      { label: "Link Character", icon: TiUserAdd, handler: () => linkWords("character", "chara00001") },
       { label: "Link Place", icon: MdEditLocationAlt, handler: () => linkWords("place", "place00001") },
       { label: "Create Note", icon: MdEditNote, handler: () => console.log("Note") },
    ]
@@ -112,7 +114,7 @@ export default function TextEditor() {
             <h1 className="text-3xl my-5">Edit Single Chapter</h1>
 
             <div style={{ display: open ? "block" : "none" }} className="p-8 my-3 bg-green-500 rounded-xl">
-               <button className="bg-white/40 p-3" onClick={() => linkWords("character", "chara00001")}>
+               <button className="bg-white/40 p-3" onClick={() => console.log(quill?.root.innerHTML)}>
                   character
                </button>
             </div>
@@ -146,7 +148,7 @@ const SelectionPop = ({ popupItems, selectBound }: { popupItems: PopupItemsType;
                onClick={item?.handler}
                className="p-3 text-gray-600 hover:bg-slate-200 shadow-2xl hover:text-emerald-500"
             >
-               {item && <item.icon size={"1.2rem"} />}
+               {item && <item.icon size={19} />}
             </button>
          ))}
       </div>

@@ -1,28 +1,29 @@
 import { useEffect, useState } from "react"
 
-export default function useHoverbox() {
-   const [hoverOn, setHoverOn] = useState("")
+export default function useHoverbox(selectBound: any) {
+   const [hoverOn, setHoverOn] = useState<{ show: boolean; x?: string; y?: string }>({ show: false })
 
    useEffect(() => {
-      const markedWords = document.querySelectorAll(".marked-word")
+      const markedWords = Array.from(document.querySelectorAll(".marked-word"))
+      // let tooltipContainer = document.querySelector(".tooltip-container")
 
       markedWords.forEach((el) => {
-         el.addEventListener("mouseenter", (e) => {
-            //   tooltipContainer.classList.add("fade-in");
-            //   tooltipContainer.style.left = `${e.pageX}px`;
-            //   tooltipContainer.style.top = `${e.pageY}px`;
-
-            // setHoverOn(el)
-            console.log(el)
+         el.addEventListener("mouseenter", function (e) {
+            // if (tooltipContainer) {
+            //  tooltipContainer.classList.add("fade-in")
+            //tooltipContainer.style.left = `${e.pageX}px`
+            // tooltipContainer.style.top = `${e.pageY}px`
+            // }
+            console.log("entered")
+            //setHoverOn({show:true, x:`${e.pageX}px`, y:`${e.pageY}px`})
          })
 
          el.addEventListener("mouseout", () => {
-            //   tooltipContainer.classList.remove("fade-in");
-            setHoverOn("")
-            console.log("first")
+            // tooltipContainer.classList.remove("fade-in")
+            setHoverOn({ show: false })
          })
       })
-   }, [])
+   }, [selectBound])
 
    return { hoverOn }
 }
