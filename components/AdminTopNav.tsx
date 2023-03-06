@@ -4,7 +4,7 @@ export default function AdminTopNav() {
    return (
       <>
          <header className="w-full p-2 pb-0 sticky top-0 left-0 z-20 bg-gray-200 ">
-            <div className="rounded-xl bg-white shadow-xl p-3 flex items-center justify-between">
+            <div className="rounded-xl bg-white shadow-2 p-3 flex items-center justify-between">
                {/* Right Side */}
                <div className=""></div>
 

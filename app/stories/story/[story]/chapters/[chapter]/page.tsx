@@ -1,4 +1,5 @@
-import TextEditor from "@/components/TextEditor"
+import REditor from "@/components/REditor"
+// import TextEditor from "@/components/TextEditor"
 
 export default function Chapter({ params }: { params: { chapter: string } }) {
    const { chapter } = params
@@ -6,7 +7,7 @@ export default function Chapter({ params }: { params: { chapter: string } }) {
    return (
       <>
          <div className="h-full">
-            <TextEditor />
+            <REditor />
          </div>
       </>
    )
