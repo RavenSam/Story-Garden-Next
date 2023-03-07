@@ -11,19 +11,20 @@ import {
    TiArrowMaximiseOutline,
 } from "react-icons/ti"
 import { useContainerDimensions } from "@/hooks/useContainerDimensions"
+import useModal from "@/hooks/useModal"
 
 const navItems = [
    { title: "Link 1", path: "/", className: "", icon: TiHomeOutline },
    { title: "Link 2", path: "/", className: "", icon: TiThLargeOutline },
    { title: "Link 3", path: "/", className: "", icon: TiFolder },
    { title: "Chapters", path: "/stories/story/1/chapters", className: "", icon: TiDocument },
-   { title: "Link 5", path: "/", className: "", icon: TiCogOutline },
 ]
 
 export default function AdminSideNav({ children }: { children: React.ReactNode }) {
    const componentRef = useRef<HTMLDivElement>(null)
    const [menuOpen, setMenuOpen] = useState(false)
    const { width } = useContainerDimensions(componentRef, menuOpen)
+   const [modal, showModal] = useModal();
 
    const toggleMenu = () => {
       if (menuOpen) {
@@ -61,6 +62,23 @@ export default function AdminSideNav({ children }: { children: React.ReactNode }
                      </div>
                      <span className=""></span>
                   </button>
+               </li>
+
+               <li className="">
+                  <button onClick={()=>{
+                     showModal("Modal", (onClose) => (
+                        <div>
+                           <p>lorem</p>
+                           <button onClick={onClose} className="p-5 bg-emerald-500 rounded-xl">Cancel</button>
+                        </div>
+                     ), true)
+                  }} className="py-3 rounded-xl flex items-center hover:bg-slate-200">
+                     <div className="w-6 h-6 mx-3">
+                        <TiCogOutline size="100%" />
+                     </div>
+                     <span className=""></span>
+                  </button>
+                  {  modal  }
                </li>
             </ul>
          </div>

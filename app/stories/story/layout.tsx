@@ -1,5 +1,5 @@
-import AdminSideNav from "@/components/AdminSideNav"
-import AdminTopNav from "@/components/AdminTopNav"
+import AdminSideNav from "@/components/ui/AdminSideNav"
+import AdminTopNav from "@/components/ui/AdminTopNav"
 
 export default function StoryLayout({ children }: { children: React.ReactNode }) {
    return (

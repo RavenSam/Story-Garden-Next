@@ -16,6 +16,7 @@ import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
 import { TRANSFORMERS } from "@lexical/markdown";
+import dynamic from "next/dynamic";
 
 import { MentionNode } from "./nodes/MentionNode";
 
@@ -23,7 +24,8 @@ import ToolbarPlugin from "./plugins/ToolbarPlugin";
 import ListMaxIndentLevelPlugin from "./plugins/ListMaxIndentLevelPlugin";
 import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
-import MentionsPlugin from "./plugins/MentionsPlugin";
+
+const MentionsPlugin = dynamic(()=> import("./plugins/MentionsPlugin"), { ssr: false })
 
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;

@@ -79,10 +79,12 @@ export class MentionNode extends TextNode {
   }
 
   exportDOM(): DOMExportOutput {
+   
     const element = document.createElement('span');
     element.setAttribute('data-lexical-mention', 'true');
     element.textContent = this.__text;
     return {element};
+ 
   }
 
   static importDOM(): DOMConversionMap | null {
