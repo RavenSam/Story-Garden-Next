@@ -7,6 +7,12 @@
 
 // import { IconButton } from "../../IconButton";
 
+export default function Test(){
+	return (
+		<h1>Test</h1>
+	)
+}
+
 // import { $isRangeSelected } from "../utils/$isRangeSelected";
 // import { useUserInteractions } from "../hooks/useUserInteractions";
 // import { TOGGLE_EDIT_LINK_MENU } from "./EditLink";
