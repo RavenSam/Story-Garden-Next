@@ -4,7 +4,7 @@ import { TiHeartOutline } from "react-icons/ti"
 
 const pages = [
    { name: "Stories", path: "/stories" },
-   { name: "Story 1", path: "/stories/story/1" },
+   { name: "Story 1", path: "/stories/1" },
 ];
 
 export default function Home() {

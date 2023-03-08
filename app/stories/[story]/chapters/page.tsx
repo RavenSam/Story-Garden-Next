@@ -10,7 +10,7 @@ export default function Chapters() {
 
                <div className="">
                   <Link
-                     href="/stories/story/1/chapters/1"
+                     href="/stories/1/chapters/1"
                      className="p-3 w-32 h-16 flex items-center justify-center rounded-xl bg-emerald-500 text-white hover:bg-emerald-600"
                   >
                      Chapter 1

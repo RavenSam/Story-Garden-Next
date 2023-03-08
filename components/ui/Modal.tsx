@@ -2,6 +2,7 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { TiTimes } from "react-icons/ti"
 import Button from "@/components/ui/Button";
+import { CSSTransition } from "react-transition-group";
 
 type ModalType = {
 	children: ReactNode;
@@ -12,11 +13,6 @@ type ModalType = {
 
 function PortalImpl({onClose,children,title,closeOnClickOutside}: ModalType) {
 	const modalRef = useRef<HTMLDivElement>(null);
-	const [mounted, setMounted] = useState(false)
-
-	useEffect(() => {
-		setMounted(true)
-	}, []);
 
 	useEffect(() => {
 		if (modalRef.current !== null) {
@@ -67,10 +63,10 @@ function PortalImpl({onClose,children,title,closeOnClickOutside}: ModalType) {
 	}, [closeOnClickOutside, onClose]);
 
 	return (
+		
 		<div className="flex items-center justify-center fixed flex-col inset-0 bg-black/50 z-[100] grow-0 shrink p-2" role="dialog">
 			<div 
-				style={{ transform: mounted ? "translateY(0)" : "translateY(-50px)", opacity: mounted ? 1 : 0 }} 
-				className="p-10 min-h-[100px] w-full max-w-[600px] flex bg-white flex-col relative shadow-6 rounded-xl translate-y-10 transition-all duration-500" 
+				className="p-10 min-h-[100px] w-full max-w-[600px] flex bg-white flex-col relative shadow-6 rounded-xl transition-all duration-500" 
 				tabIndex={-1} 
 				ref={modalRef}>
 
@@ -83,6 +79,7 @@ function PortalImpl({onClose,children,title,closeOnClickOutside}: ModalType) {
 				<div className="pt-5">{children}</div>
 			</div>
 		</div>
+
 	);
 }
 

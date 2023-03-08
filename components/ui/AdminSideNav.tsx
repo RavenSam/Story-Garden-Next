@@ -17,7 +17,7 @@ const navItems = [
    { title: "Link 1", path: "/", className: "", icon: TiHomeOutline },
    { title: "Link 2", path: "/", className: "", icon: TiThLargeOutline },
    { title: "Link 3", path: "/", className: "", icon: TiFolder },
-   { title: "Chapters", path: "/stories/story/1/chapters", className: "", icon: TiDocument },
+   { title: "Chapters", path: "/stories/1/chapters", className: "", icon: TiDocument },
 ]
 
 export default function AdminSideNav({ children }: { children: React.ReactNode }) {
