@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import "../styles/lexica.css";
+@import "react-modern-drawer/dist/index.css";
 
 :root {
    --primary-color: #10b981;
@@ -34,20 +35,20 @@
   display: none;
 } 
 
-.modal-enter .modalContent {
-  opacity: 0;
-  transform: scale(0.9);
-}
-.modal-enter-active .modalContent {
-  opacity: 1;
-  transform: translateX(0);
-  transition: all 0.2s;
-}
-.modal-exit .modalContent {
-  opacity: 1;
-}
-.modal-exit-active .modalContent {
-  opacity: 0;
-  transform: scale(0.9);
-  transition: all 0.2s;
-}
+ .drawer-transition-enter {
+    transform: translateX(10%);
+    opacity: 0;
+  }
+  .drawer-transition-enter-active {
+    transition: transform 500ms;
+    transform: translateX(0);
+    opacity: 1;
+  }
+  .drawer-transition-exit {
+    transform: translateX(0);
+  }
+  .drawer-transition-exit-active {
+    transition: transform 500ms;
+    transform: translateX(100%);
+    opacity: 0;
+  }

@@ -14,20 +14,16 @@ type ModalType = {
 function PortalImpl({onClose,children,title,closeOnClickOutside}: ModalType) {
 	const modalRef = useRef<HTMLDivElement>(null);
 
+	// Focus within modal
 	useEffect(() => {
 		if (modalRef.current !== null) {
 			modalRef.current.focus();
 		}
 	}, []);
 
+	// Close events (Click on overlay to close & onClose func)
 	useEffect(() => {
-		let modalOverlayElement: HTMLElement | null = null;
-
-		const handler = (event: KeyboardEvent) => {
-			if (event.keyCode === 27) {
-				onClose();
-			}
-		};
+		let modalOverlayElement: HTMLElement | null = null;		
 
 		const clickOutsideHandler = (event: MouseEvent) => {
 			const target = event.target;
@@ -49,15 +45,17 @@ function PortalImpl({onClose,children,title,closeOnClickOutside}: ModalType) {
 			}
 		}
 
-		window.addEventListener("keydown", handler);
+		const onKeyPress = (e: KeyboardEvent) => {
+			if (e.key === 'Escape') {
+				onClose();
+			}
+		};
+		window.addEventListener("keydown", onKeyPress);
 
 		return () => {
-			window.removeEventListener("keydown", handler);
+			window.removeEventListener("keydown", onKeyPress);
 			if (modalOverlayElement !== null) {
-				modalOverlayElement?.removeEventListener(
-					"click",
-					clickOutsideHandler
-				);
+				modalOverlayElement?.removeEventListener("click", clickOutsideHandler);
 			}
 		};
 	}, [closeOnClickOutside, onClose]);
