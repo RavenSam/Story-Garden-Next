@@ -13,14 +13,10 @@ import * as ReactDOM from 'react-dom';
 
 import {$createMentionNode} from '../nodes/MentionNode';
 
-const PUNCTUATION =
-  '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
+const PUNCTUATION ='\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
 const NAME = '\\b[A-Z][^\\s' + PUNCTUATION + ']';
 
-const DocumentMentionsRegex = {
-  NAME,
-  PUNCTUATION,
-};
+const DocumentMentionsRegex = { NAME, PUNCTUATION };
 
 const CapitalizedNameMentionsRegex = new RegExp(
   '(^|[^#])((?:' + DocumentMentionsRegex.NAME + '{' + 1 + ',})$)',

@@ -1,4 +1,5 @@
 import { TiUserOutline, TiBell } from "react-icons/ti";
+import Button from "@/components/ui/Button"
 
 export default function AdminTopNav() {
    return (
@@ -10,12 +11,12 @@ export default function AdminTopNav() {
 
                {/* Left Side */}
                <div className="flex items-center space-x-2">
-                  <button aria-label="notification" className="btn-icon">
+                  <Button label="notification" btnType="icon" variant="ghost">
                      <TiBell />
-                  </button>
-                  <button aria-label="user" className="btn-icon">
+                  </Button>
+                  <Button label="user" btnType="icon" variant="ghost">
                      <TiUserOutline />
-                  </button>
+                  </Button>
                </div>
             </div>
          </header>

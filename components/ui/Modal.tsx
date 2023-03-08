@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { TiTimes } from "react-icons/ti"
+import Button from "@/components/ui/Button";
 
 type ModalType = {
 	children: ReactNode;
@@ -73,9 +74,9 @@ function PortalImpl({onClose,children,title,closeOnClickOutside}: ModalType) {
 				tabIndex={-1} 
 				ref={modalRef}>
 
-				<button className="absolute right-2 top-2 btn-icon" aria-label="Close modal" onClick={onClose}>
+				<Button className="!absolute right-2 top-2" variant="ghost" btnType="icon" label="Close modal" onClick={onClose}>
 					<TiTimes/>
-				</button>
+				</Button>
 
 				<h2 className="text-gray-700 m-0 pb-5 border-b border-slate-300 text-xl font-bold">{title}</h2>
 

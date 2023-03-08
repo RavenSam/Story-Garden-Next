@@ -24,7 +24,7 @@ export default function ChapterActions() {
 						onClick={el.onClick}
 						label={el.label}
 						tooltip="left"
-						type="icon"
+						btnType="icon"
 						variant="outline"
 						className="opacity-60 hover:opacity-100 hover:shadow-xl"
 					>
