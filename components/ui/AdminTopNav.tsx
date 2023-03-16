@@ -12,7 +12,7 @@ export default function AdminTopNav() {
 
                {/* Left Side */}
                <div className="flex items-center space-x-2">
-               <Dropdown/>
+               {/*<Dropdown/>*/}
                   <Button label="notification" btnType="icon" variant="ghost">
                      <TiBell />
                   </Button>
