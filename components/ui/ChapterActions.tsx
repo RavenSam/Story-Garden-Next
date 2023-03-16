@@ -1,14 +1,14 @@
 import { TiPlaneOutline, TiClipboard, TiEyeOutline } from "react-icons/ti";
 import { TfiCommentAlt } from "react-icons/tfi";
 import Button from "@/components/ui/Button";
-import { useDrawer, Drawer } from "@/components/ui/Drawer"
+// import { useDrawer, Drawer } from "@/components/ui/Drawer"
 
 
 export default function ChapterActions() {
-	const { toggleDrawer, isOpen } = useDrawer()
+	// const { toggleDrawer, isOpen } = useDrawer()
 
 
-	const commentsHanler = () => toggleDrawer();
+	const commentsHanler = () => console.log("Comments Clicked");
 
 	const notesHanler = () => console.log("Notes Clicked");
 
@@ -37,9 +37,9 @@ export default function ChapterActions() {
 					</Button>
 				))}
 
-				<Drawer enableOverlay={true} isOpen={isOpen} toggleDrawer={toggleDrawer} >
+{/*				<Drawer enableOverlay={true} isOpen={isOpen} toggleDrawer={toggleDrawer} >
 					<h2 className="text-3xl">It's works</h2>
-				</Drawer>
+				</Drawer>*/}
 			</div>
 		</>
 	);

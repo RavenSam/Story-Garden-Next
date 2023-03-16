@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "../styles/lexica.css";
+@import "./lexica.css";
 @import "react-modern-drawer/dist/index.css";
 
 :root {
