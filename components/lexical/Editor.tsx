@@ -60,7 +60,7 @@ export default function Editor() {
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className="editor-container">
-        <ToolbarPlugin />
+        
         <div className="editor-inner">
           <RichTextPlugin
             contentEditable={<ContentEditable className="editor-input" />}
@@ -77,6 +77,8 @@ export default function Editor() {
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
           <MentionsPlugin />
         </div>
+
+        <ToolbarPlugin />
       </div>
     </LexicalComposer>
   );

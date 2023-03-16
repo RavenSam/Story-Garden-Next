@@ -30,8 +30,8 @@ export default function ChapterActions() {
 						label={el.label}
 						tooltip="left"
 						btnType="icon"
-						variant="outline"
-						className="opacity-60 hover:opacity-100 hover:shadow-xl"
+						variant="ghost"
+						className="opacity-60 hover:opacity-100"
 					>
 						<el.icon />
 					</Button>

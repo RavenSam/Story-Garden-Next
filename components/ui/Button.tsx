@@ -61,13 +61,13 @@ const Button: React.FC<Props> = ({
 	let tooltipClassDirection = "";
 	if (tooltip === "left") {
 		tooltipClassDirection =
-			"-translate-x-[100%] -left-1 top-1/2 group-hover:-translate-y-1/2";
+			"-translate-x-[100%] -left-3 top-1/2 group-hover:-translate-y-1/2";
 	} else if (tooltip === "right") {
 		tooltipClassDirection =
 			"translate-x-[100%] -right-1 top-1/2 group-hover:-translate-y-1/2";
 	}
 
-	const BtnClass = `${className} ${btnTypeClass} ${colorVariant[variant][colorScheme]} focus-visible:outline-none btn relative group transition-all font-semibold`;
+	const BtnClass = `${className} ${btnTypeClass} ${colorVariant[variant][colorScheme]} space-x-2 focus-visible:outline-none btn relative group transition-all font-semibold`;
 
 	if (href) {
 		return (

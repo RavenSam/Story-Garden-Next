@@ -237,18 +237,18 @@ function FloatingLinkEditor({ editor }) {
   );
 }
 
-function Select({ onChange, className, options, value }) {
-  return (
-    <select className={className} onChange={onChange} value={value}>
-      <option hidden={true} value="" />
-      {options.map((option) => (
-        <option key={option} value={option}>
-          {option}
-        </option>
-      ))}
-    </select>
-  );
-}
+// function Select({ onChange, className, options, value }) {
+//   return (
+//     <select className={className} onChange={onChange} value={value}>
+//       <option hidden={true} value="" />
+//       {options.map((option) => (
+//         <option key={option} value={option}>
+//           {option}
+//         </option>
+//       ))}
+//     </select>
+//   );
+// }
 
 function getSelectedNode(selection) {
   const anchor = selection.anchor;
@@ -280,7 +280,7 @@ function BlockOptionsDropdownList({
 
     if (toolbar !== null && dropDown !== null) {
       const { top, left } = toolbar.getBoundingClientRect();
-      dropDown.style.top = `${top + 50}px`;
+      dropDown.style.top = `${top}px`;
       dropDown.style.left = `${left}px`;
     }
   }, [dropDownRef, toolbarRef]);
@@ -417,9 +417,9 @@ function BlockOptionsDropdownList({
           onClick={option.handler}
           variant="ghost"
           btnType="rect"
-          className={`w-full justify-start space-x-3 ${blockType === option.blockType ? "!text-emerald-500 !bg-emerald-100" : ""}`}
+          className={`w-full justify-start px-4 space-x-3 ${blockType === option.blockType ? "!text-emerald-500 !bg-emerald-100" : ""}`}
         >
-          <option.icon />
+          <option.icon className="text-xl" />
           <span className="font-normal text-sm">{option.name}</span>
         </Button>
       ))}
@@ -597,7 +597,7 @@ export default function ToolbarPlugin() {
  
 
   return (
-    <div className="toolbar !sticky !top-0" ref={toolbarRef}>
+    <div className="toolbar" ref={toolbarRef}>
       {undoRedoItems.map((item) => (
         <Button
           key={item.label}
