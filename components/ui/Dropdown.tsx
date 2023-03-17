@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef, RefObject, Dispatch, SetStateAction, ReactNode } from "react"
 import { createPortal } from "react-dom";
 import Button from "@/components/ui/Button"
+import type { ButtonProps } from "@/components/ui/Button"
 import { BiAtom, BiChevronDown } from "react-icons/bi"
 import useToggle from "@/hooks/useToggle"
 
@@ -34,10 +35,7 @@ const Drop =({containerRef, setIsOpen, children, className}:DropProps) =>{
     if (dropdown !== null && container !== null) {
       const handle = (event:any) => {
         const target = event.target;
-
-        if (!dropdown.contains(target) && !container.contains(target)) {
           setIsOpen(false);
-        }
       };
       document.addEventListener("click", handle);
 
@@ -49,30 +47,28 @@ const Drop =({containerRef, setIsOpen, children, className}:DropProps) =>{
 
 	return(
 
-		<div ref={dropdownRef} className={`${className} absolute min-w-[100px] min-h-[100px] bg-white rounded-xl shadow`} >{children}</div>
+		<div ref={dropdownRef} className={`${className} absolute bg-white rounded-xl shadow-float`} >{children}</div>
 
 	)
 }
 
-interface DropdownProps {
+interface DropdownProps extends ButtonProps {
 	children: ReactNode,
-	label:string,
 	icon?:ReactNode,
 	chevron?:boolean,
 	btnClassName?:string,
-	className?:string
 }
 
-export default function Dropdown ({ children, label, icon, chevron=false, btnClassName="", className="" }:DropdownProps) {
+export default function Dropdown ({ children, label, icon, chevron=false, btnClassName="", className="", btnType, variant, colorScheme }:DropdownProps) {
 	const { isOpen, toggleDrawer, setIsOpen } = useToggle()
 	const containerRef = useRef<HTMLDivElement>(null)
 
 	return(
 		<>
 		<div className="relative" ref={containerRef} >
-			<Button onClick={toggleDrawer} btnType="rect" variant="ghost" className={`${btnClassName} border-2 border-black border-solid`} >
+			<Button onClick={toggleDrawer} btnType={ btnType } variant={ variant } className={`${btnClassName}`} >
 				{icon}
-				<span>{label || "Label"}</span>
+				{ btnType !== "icon" ? <span>{label}</span> : null }
 				{chevron ? <BiChevronDown className="text-xl"/> : null}
 			</Button>
 

@@ -1,6 +1,10 @@
 import Link from "next/link"
 
+
 export default function Stories() {
+
+
+
    return (
       <main>
          <div className="flex items-center justify-center h-[100vh]">

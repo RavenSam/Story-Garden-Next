@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-interface Props {
+export interface ButtonProps {
 	onClick?: () => void;
 	href?: string;
 	label?: string;
@@ -13,7 +13,7 @@ interface Props {
 	colorScheme?: "default" | "primary" | "danger" | "warning";
 }
 
-const Button: React.FC<Props> = ({
+export default function Button({
 	children,
 	label,
 	onClick,
@@ -24,7 +24,7 @@ const Button: React.FC<Props> = ({
 	variant = "solid",
 	btnType = "pill",
 	colorScheme = "default",
-}) => {
+}: ButtonProps) {
 	const colorVariant = {
 		solid: {
 			default: "bg-black text-white hover:bg-opacity-80 active:bg-black",
@@ -102,4 +102,3 @@ const Button: React.FC<Props> = ({
 	}
 };
 
-export default Button;

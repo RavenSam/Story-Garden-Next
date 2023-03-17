@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -36,6 +35,7 @@ import {
 } from "@lexical/rich-text";
 
 import Button from "@/components/ui/Button";
+import Dropdown from "@/components/ui/Dropdown";
 import {
   BiUndo,
   BiRedo,
@@ -53,7 +53,6 @@ import {
   BiText
 } from "react-icons/bi";
 import { RiH1, RiH2, RiDoubleQuotesR } from "react-icons/ri";
-
 
 const LowPriority = 1;
 
@@ -83,7 +82,7 @@ function Divider() {
   return <div className="divider" />;
 }
 
-function positionEditorElement(editor, rect) {
+function positionEditorElement(editor:any, rect:any) {
   if (rect === null) {
     editor.style.opacity = "0";
     editor.style.top = "-1000px";
@@ -97,13 +96,13 @@ function positionEditorElement(editor, rect) {
   }
 }
 
-function FloatingLinkEditor({ editor }) {
+function FloatingLinkEditor({ editor }:{ editor:any }) {
   const editorRef = useRef(null);
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const mouseDownRef = useRef(false);
   const [linkUrl, setLinkUrl] = useState("");
   const [isEditMode, setEditMode] = useState(false);
-  const [lastSelection, setLastSelection] = useState(null);
+  const [lastSelection, setLastSelection] = useState<any>(null);
 
   const updateLinkEditor = useCallback(() => {
     const selection = $getSelection();
@@ -161,7 +160,7 @@ function FloatingLinkEditor({ editor }) {
 
   useEffect(() => {
     return mergeRegister(
-      editor.registerUpdateListener(({ editorState }) => {
+      editor.registerUpdateListener(({ editorState }:any) => {
         editorState.read(() => {
           updateLinkEditor();
         });
@@ -237,20 +236,11 @@ function FloatingLinkEditor({ editor }) {
   );
 }
 
-// function Select({ onChange, className, options, value }) {
-//   return (
-//     <select className={className} onChange={onChange} value={value}>
-//       <option hidden={true} value="" />
-//       {options.map((option) => (
-//         <option key={option} value={option}>
-//           {option}
-//         </option>
-//       ))}
-//     </select>
-//   );
-// }
 
-function getSelectedNode(selection) {
+
+
+
+function getSelectedNode(selection:any) {
   const anchor = selection.anchor;
   const focus = selection.focus;
   const anchorNode = selection.anchor.getNode();
@@ -266,44 +256,8 @@ function getSelectedNode(selection) {
   }
 }
 
-function BlockOptionsDropdownList({
-  editor,
-  blockType,
-  toolbarRef,
-  setShowBlockOptionsDropDown,
-}) {
-  const dropDownRef = useRef(null);
 
-  useEffect(() => {
-    const toolbar = toolbarRef.current;
-    const dropDown = dropDownRef.current;
-
-    if (toolbar !== null && dropDown !== null) {
-      const { top, left } = toolbar.getBoundingClientRect();
-      dropDown.style.top = `${top}px`;
-      dropDown.style.left = `${left}px`;
-    }
-  }, [dropDownRef, toolbarRef]);
-
-  useEffect(() => {
-    const dropDown = dropDownRef.current;
-    const toolbar = toolbarRef.current;
-
-    if (dropDown !== null && toolbar !== null) {
-      const handle = (event) => {
-        const target = event.target;
-
-        if (!dropDown.contains(target) && !toolbar.contains(target)) {
-          setShowBlockOptionsDropDown(false);
-        }
-      };
-      document.addEventListener("click", handle);
-
-      return () => {
-        document.removeEventListener("click", handle);
-      };
-    }
-  }, [dropDownRef, setShowBlockOptionsDropDown, toolbarRef]);
+const BlockOptions = ({ editor, blockType } : { editor:any, blockType:any }) =>{
 
   const formatParagraph = () => {
     if (blockType !== "paragraph") {
@@ -315,7 +269,7 @@ function BlockOptionsDropdownList({
         }
       });
     }
-    setShowBlockOptionsDropDown(false);
+  
   };
 
   const formatLargeHeading = () => {
@@ -328,7 +282,6 @@ function BlockOptionsDropdownList({
         }
       });
     }
-    setShowBlockOptionsDropDown(false);
   };
 
   const formatSmallHeading = () => {
@@ -341,7 +294,7 @@ function BlockOptionsDropdownList({
         }
       });
     }
-    setShowBlockOptionsDropDown(false);
+  
   };
 
   const formatBulletList = () => {
@@ -350,7 +303,7 @@ function BlockOptionsDropdownList({
     } else {
       editor.dispatchCommand(REMOVE_LIST_COMMAND);
     }
-    setShowBlockOptionsDropDown(false);
+   
   };
 
   const formatNumberedList = () => {
@@ -359,7 +312,6 @@ function BlockOptionsDropdownList({
     } else {
       editor.dispatchCommand(REMOVE_LIST_COMMAND);
     }
-    setShowBlockOptionsDropDown(false);
   };
 
   const formatQuote = () => {
@@ -372,7 +324,6 @@ function BlockOptionsDropdownList({
         }
       });
     }
-    setShowBlockOptionsDropDown(false);
   };
 
   const blockOptions = [
@@ -409,8 +360,12 @@ function BlockOptionsDropdownList({
     { blockType: "quote", name: "Quote", icon: RiDoubleQuotesR, handler: formatQuote },
   ];
 
+
+  const BlockIcon = blockOptions.find(o => o.blockType === blockType)?.icon as React.ElementType
+  const BlockName = blockOptions.find(o => o.blockType === blockType)?.name.split(" ")[0]
+
   return (
-    <div className="dropdown rounded-xl p-2" ref={dropDownRef}>
+    <Dropdown className="-translate-y-[107%]" label={BlockName} btnType="rect" variant="ghost" icon={ <BlockIcon/> } btnClassName="!font-normal" >
       {blockOptions.map((option) => (
         <Button
           key={option.blockType}
@@ -423,9 +378,10 @@ function BlockOptionsDropdownList({
           <span className="font-normal text-sm">{option.name}</span>
         </Button>
       ))}
-    </div>
+    </Dropdown>
   );
 }
+
 
 export default function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext();
@@ -433,9 +389,8 @@ export default function ToolbarPlugin() {
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
   const [blockType, setBlockType] = useState("paragraph");
-  const [selectedElementKey, setSelectedElementKey] = useState(null);
-  const [showBlockOptionsDropDown, setShowBlockOptionsDropDown] =
-    useState(false);
+  const [alignType, setAlignType] = useState("Left Align");
+  const [selectedElementKey, setSelectedElementKey] = useState<null | string>(null);
   const [codeLanguage, setCodeLanguage] = useState("");
   const [isRTL, setIsRTL] = useState(false);
   const [isLink, setIsLink] = useState(false);
@@ -460,7 +415,8 @@ export default function ToolbarPlugin() {
         const type = $isHeadingNode(element)
           ? element.getTag()
           : element.getType();
-        setBlockType(type);
+        setBlockType(type === "list" ? element.getTag() : type);
+
       }
       // Update text format
       setIsBold(selection.hasFormat("bold"));
@@ -527,13 +483,13 @@ export default function ToolbarPlugin() {
       label: "Undo",
       icon: BiUndo,
       disabled: !canUndo,
-      handler: () => editor.dispatchCommand(UNDO_COMMAND),
+      handler: () => editor.dispatchCommand(UNDO_COMMAND, undefined),
     },
     {
       label: "Redo",
       icon: BiRedo,
       disabled: !canRedo,
-      handler: () => editor.dispatchCommand(REDO_COMMAND),
+      handler: () => editor.dispatchCommand(REDO_COMMAND, undefined),
     },
   ];
 
@@ -576,24 +532,37 @@ export default function ToolbarPlugin() {
     {
       label: "Left Align",
       icon: BiAlignLeft,
-      handler: () => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "left"),
+      handler: () => {
+        editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "left")
+        setAlignType("Left Align")
+      },
     },
      {
       label: "Center Align",
       icon: BiAlignMiddle,
-      handler: () => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "center"),
+      handler: () => {
+        editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "center")
+        setAlignType("Center Align")
+      },
     },
     {
       label: "Right Align",
       icon: BiAlignRight,
-      handler: () => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "right"),
+      handler: () => {
+        editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "right")
+        setAlignType("Right Align")
+      },
     },
     {
       label: "Justify Align",
       icon: BiAlignJustify,
-      handler: () => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "justify"),
+      handler: () => {
+        editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "justify")
+        setAlignType("Justify Align")
+      },
     },
   ];
+  const AlignIcon = formatAlignItems?.find(o => o.label === alignType)?.icon as React.ElementType
  
 
   return (
@@ -613,32 +582,11 @@ export default function ToolbarPlugin() {
 
       <Divider />
 
-      {supportedBlockTypes.has(blockType) && (
-        <>
-          <button
-            className="toolbar-item block-controls"
-            onClick={() =>
-              setShowBlockOptionsDropDown(!showBlockOptionsDropDown)
-            }
-            aria-label="Formatting Options"
-          >
-            <span className={"icon block-type " + blockType} />
-            <span className="text">{blockTypeToBlockName[blockType]}</span>
-            <i className="chevron-down" />
-          </button>
-          {showBlockOptionsDropDown &&
-            createPortal(
-              <BlockOptionsDropdownList
-                editor={editor}
-                blockType={blockType}
-                toolbarRef={toolbarRef}
-                setShowBlockOptionsDropDown={setShowBlockOptionsDropDown}
-              />,
-              document.body
-            )}
-          <Divider />
-        </>
-      )}
+      {supportedBlockTypes.has(blockType) ? (
+        <BlockOptions editor={editor} blockType={blockType} />
+      ) : null}
+
+      <Divider />
 
       {formatTextItems.map((item) => (
         <Button
@@ -658,17 +606,21 @@ export default function ToolbarPlugin() {
 
       <Divider />
 
+      <Dropdown className="-translate-y-[105%]" label="Align Text" btnType="icon" icon={ <AlignIcon/> } variant="ghost" >
        {formatAlignItems.map((item) => (
         <Button
           key={item.label}
           variant="ghost"
           btnType="icon"
+          className={item.label === alignType ? "!text-emerald-500 !bg-emerald-100" : ""}
           onClick={item.handler}
           label={item.label}
         >
           <item.icon/>
         </Button>
       ))}
+       </Dropdown>
+
 
       <Divider />
      

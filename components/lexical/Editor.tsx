@@ -10,19 +10,18 @@ import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import { TableCellNode, TableNode, TableRowNode } from "@lexical/table";
 import { ListItemNode, ListNode } from "@lexical/list";
-import { CodeHighlightNode, CodeNode } from "@lexical/code";
 import { AutoLinkNode, LinkNode } from "@lexical/link";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
-import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
-import { TRANSFORMERS } from "@lexical/markdown";
+// import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
+// import { TRANSFORMERS } from "@lexical/markdown";
 import dynamic from "next/dynamic";
+import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin';
 
 import { MentionNode } from "./nodes/MentionNode";
 
 import ToolbarPlugin from "./plugins/ToolbarPlugin";
 import ListMaxIndentLevelPlugin from "./plugins/ListMaxIndentLevelPlugin";
-import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
 
 const MentionsPlugin = dynamic(()=> import("./plugins/MentionsPlugin"), { ssr: false })
@@ -45,8 +44,6 @@ const editorConfig = {
     ListNode,
     ListItemNode,
     QuoteNode,
-    CodeNode,
-    CodeHighlightNode,
     TableNode,
     TableCellNode,
     TableRowNode,
@@ -61,7 +58,7 @@ export default function Editor() {
     <LexicalComposer initialConfig={editorConfig}>
       <div className="editor-container">
         
-        <div className="editor-inner">
+        <div className="editor-inner prose">
           <RichTextPlugin
             contentEditable={<ContentEditable className="editor-input" />}
             placeholder={<Placeholder />}
@@ -69,13 +66,13 @@ export default function Editor() {
           />
           <HistoryPlugin />
           <AutoFocusPlugin />
-          <CodeHighlightPlugin />
           <ListPlugin />
           <LinkPlugin />
           <AutoLinkPlugin />
           <ListMaxIndentLevelPlugin maxDepth={7} />
-          <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+          {/*<MarkdownShortcutPlugin transformers={TRANSFORMERS} />*/}
           <MentionsPlugin />
+          <TabIndentationPlugin/>
         </div>
 
         <ToolbarPlugin />
