@@ -8,6 +8,14 @@ export default function useToggle (){
         setIsOpen((prevState) => !prevState)
     }
 
-    return { isOpen, toggleDrawer, setIsOpen }
+    const onOpen = () => {
+        setIsOpen(true);
+    }
+
+    const onClose = () => {
+        setIsOpen(false);
+    }
+
+    return { isOpen, toggleDrawer, setIsOpen, onClose, onOpen }
 
 }

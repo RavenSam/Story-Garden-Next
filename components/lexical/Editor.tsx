@@ -26,6 +26,9 @@ import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
 
 const MentionsPlugin = dynamic(()=> import("./plugins/MentionsPlugin"), { ssr: false })
 
+import HoverMentionBox from "@/components/lexical/HoverMentionBox"
+
+
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
 }
@@ -57,7 +60,7 @@ export default function Editor() {
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className="editor-container">
-        
+      <HoverMentionBox/>
         <div className="editor-inner prose">
           <RichTextPlugin
             contentEditable={<ContentEditable className="editor-input" />}
@@ -80,3 +83,4 @@ export default function Editor() {
     </LexicalComposer>
   );
 }
+

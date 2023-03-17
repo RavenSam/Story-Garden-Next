@@ -25,6 +25,8 @@
    
 }
 
+
+
 .btn:after {
   width: 100%;
   height: 100%;
@@ -35,20 +37,44 @@
   display: none;
 } 
 
- .drawer-transition-enter {
-    transform: translateX(10%);
-    opacity: 0;
-  }
-  .drawer-transition-enter-active {
-    transition: transform 500ms;
-    transform: translateX(0);
-    opacity: 1;
-  }
-  .drawer-transition-exit {
-    transform: translateX(0);
-  }
-  .drawer-transition-exit-active {
-    transition: transform 500ms;
-    transform: translateX(100%);
-    opacity: 0;
-  }
+.drawer-transition-enter {
+  transform: translateX(10%);
+  opacity: 0;
+}
+.drawer-transition-enter-active {
+  transition: transform 500ms;
+  transform: translateX(0);
+  opacity: 1;
+}
+.drawer-transition-exit {
+  transform: translateX(0);
+}
+.drawer-transition-exit-active {
+  transition: transform 500ms;
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/*MODAL -----------------*/
+
+.modal-enter {
+  opacity: 0;
+  transform: translateY(-50%);
+}
+
+.modal-enter-active {
+  opacity: 1;
+  transform: translateY(0%);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.modal-exit {
+  opacity: 1;
+  transform: translateY(0%);
+}
+
+.modal-exit-active {
+  opacity: 0;
+  transform: translateY(-50%);
+  transition: opacity 300ms, transform 300ms;
+}

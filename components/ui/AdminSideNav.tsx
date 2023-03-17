@@ -11,7 +11,8 @@ import {
    TiArrowMaximiseOutline,
 } from "react-icons/ti"
 import { useContainerDimensions } from "@/hooks/useContainerDimensions"
-import useModal from "@/hooks/useModal"
+import Modal from "@/components/ui/Modal"
+import useToggle from "@/hooks/useToggle"
 
 const navItems = [
    { title: "Link 1", path: "/", className: "", icon: TiHomeOutline },
@@ -24,7 +25,6 @@ export default function AdminSideNav({ children }: { children: React.ReactNode }
    const componentRef = useRef<HTMLDivElement>(null)
    const [menuOpen, setMenuOpen] = useState(false)
    const { width } = useContainerDimensions(componentRef, menuOpen)
-   const [modal, showModal] = useModal();
 
    const toggleMenu = () => {
       if (menuOpen) {
@@ -65,20 +65,7 @@ export default function AdminSideNav({ children }: { children: React.ReactNode }
                </li>
 
                <li className="">
-                  <button onClick={()=>{
-                     showModal("Modal", (onClose) => (
-                        <div>
-                           <p>lorem</p>
-                           <button onClick={onClose} className="p-5 bg-emerald-500 rounded-xl">Cancel</button>
-                        </div>
-                     ), true)
-                  }} className="py-3 rounded-xl flex items-center hover:bg-slate-200">
-                     <div className="w-6 h-6 mx-3">
-                        <TiCogOutline size="100%" />
-                     </div>
-                     <span className=""></span>
-                  </button>
-                  {  modal  }
+                  <EditorSettings menuOpen={menuOpen} />
                </li>
             </ul>
          </div>
@@ -91,4 +78,28 @@ export default function AdminSideNav({ children }: { children: React.ReactNode }
          </div>
       </>
    )
+}
+
+
+const EditorSettings = ({ menuOpen }: {menuOpen:boolean}) =>{
+   const { onClose, isOpen, onOpen } = useToggle()
+
+   return (
+      <>
+         
+      <button onClick={onOpen} className="py-3 rounded-xl flex items-center hover:bg-slate-200">
+         <div className="w-6 h-6 mx-3">
+            <TiCogOutline size="100%" />
+         </div>
+         <span className={`${menuOpen ? "block" : "hidden"}`}>Settings</span>
+      </button>
+      <Modal isOpen={isOpen} onClose={onClose} title="Settings" >
+         <h2>Content Here</h2>
+      </Modal>
+
+      </>
+
+
+    )
+
 }
